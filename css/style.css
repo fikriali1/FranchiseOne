@@ -103,7 +103,15 @@ footer{margin-top:60px;padding:56px 0 24px;border-top:1px solid rgba(36,26,66,.0
 .mdl{font-style:normal;font-weight:800;font-size:.8rem;padding:5px 14px;border-radius:99px;box-shadow:inset 0 2px 2px rgba(255,255,255,.8)}.mdl.auto{background:#d4efe8;color:var(--tdk)}.mdl.self{background:var(--butter);color:#6b4a00}
 @media(max-width:600px){.logos .logo-tile{min-height:250px;padding:16px 10px 14px}.logos .lg img{max-height:90px}.stat b{font-size:1.5rem}.stat{font-size:.85rem}}
 /* ===== Theme switcher (preview) ===== */
-.ld{display:none}[data-theme=deck] .ld{display:block}[data-theme=deck] .ll{display:none}
+/*.ld{display:none}[data-theme=deck] .ld{display:block}[data-theme=deck] .ll{display:none}*/
+/* Aturan default untuk tema terang (White & Cream) */
+.ld { display: none !important; }
+.ll { display: block !important; }
+
+/* Aturan khusus untuk tema gelap (Deck) */
+[data-theme="deck"] .ld { display: block !important; }
+[data-theme="deck"] .ll { display: none !important; }
+
 [data-theme=cream]{--bg:#FBF4E9;--hdr:rgba(251,244,233,.72);--navbg:rgba(251,244,233,.97)}
 [data-theme=cream] body{background:radial-gradient(50vw 40vw at 100% 0,rgba(83,183,166,.35),transparent 70%) fixed,radial-gradient(45vw 35vw at 0 100%,rgba(254,232,182,.8),transparent 70%) fixed,#FBF4E9}
 [data-theme=cream] footer{background:linear-gradient(180deg,transparent,rgba(83,183,166,.22));border-top:0}
