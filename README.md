@@ -12,3 +12,15 @@ Plain HTML/CSS/JS. No build step.
 - Brand logos: put PNGs in `assets/brands/` named like the brand in lowercase with dashes (e.g. `bebek-terminal.png`). Missing files show the brand name as text.
 - Colors, text color, hover distances: variables/rules at the top of `css/style.css`.
 - Placeholders to replace: stats (`index.html`), `#` links (Location/Commerce, Read more, Terms, Privacy).
+
+## Qrafter link (one line)
+Open `js/main.js`. The first line is `const QRAFTER_URL="#";`. Put the Qrafter website address between the quotes, for example `const QRAFTER_URL="https://qrafter.example.com";`, then save. Every Qrafter button (hero, slider, Qrafter section, path card, System card) uses it and opens in a new tab. While it is `"#"` they do nothing.
+
+## Photos and screenshots (a missing file just shows a dashed placeholder or initials)
+- Product screenshots or illustrations: `assets/products/` with these exact names: `qrafter-hero.png`, `expansion-hero.png` (hero slides), `qrafter-orders.png` (wide) and `qrafter-menu.png` (phone, portrait) in the Qrafter section.
+- Leadership: `assets/team/andre.jpg`, `assets/team/paulus.jpg` (square crop works best).
+- Our Story photo: `assets/team/story.jpg`. If the file is missing, the photo block is hidden.
+- Keep the file name and extension exactly as written, or change the matching `src` in `index.html`.
+
+## Hero slides
+Slides are the two `<article class="slide ...">` blocks in `index.html` (section `#home`). To add one, copy a block and update the "1 of 2" labels.
