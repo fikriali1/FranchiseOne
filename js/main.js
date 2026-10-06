@@ -8,7 +8,7 @@ const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; count
 ["RB 88"],["Donatsu"],["Prek Tea"],["Sooper Jet"]];
 const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Pertehmina":"https://www.instagram.com/pertehmina/",
-"Richeese":"https://order.richeesefactory.com/order/",
+"Richeese":"https://order.richeesefactory.com/discovery/",
 "Frutta Gelato":"https://fruttagelato.com",
 "Steak Indonesia Raya":"https://www.instagram.com/franchise_steak/",
 "Flat Burger":"https://www.instagram.com/flatburger.indonesia/",
@@ -20,8 +20,8 @@ const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Uena":"https://uenafood.com",
 "Pertamilk":"https://www.instagram.com/pertamilk.official/",
 "Street Sushi":"https://www.instagram.com/streetsushi.id/",
-"Sate Taichan":"https://www.instagram.com/taichannyot2/",
-"Burger King":"https://bkdelivery.co.id",
+"Sate Taichan":"https://www.taichannyot2.com/",
+"Burger King":"https://bkdelivery.co.id/about-us/",
 "Sei Sapi Mancuy":"https://www.instagram.com/seisapimancuy/",
 "Bebek Terminal":"https://www.instagram.com/bebekterminal/",
 "Smuky":"https://www.instagram.com/smuky.official/",
