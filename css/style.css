@@ -159,3 +159,13 @@ footer{margin-top:60px;padding:56px 0 24px;border-top:1px solid rgba(36,26,66,.0
 .leaders .who{margin-bottom:6px}.leaders h3{font-size:1.2rem}
 @media(max-width:600px){.slide{padding:14px 14px 24px}.sl-body{padding:0 8px}}
 [data-theme=deck] .dots button[aria-current=true]::before{background:linear-gradient(90deg,var(--teal2),#a6e6da)}
+/* ===== Our Story slider, section subtitle ===== */
+#start h2{margin-bottom:14px}.sec-sub{font-size:1.15rem;margin:0 0 40px;max-width:52ch}
+.ctrl[hidden]{display:none}
+.story-slider{margin-bottom:8px}.story-slider .slides{display:grid}
+.sslide{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s .9s}.sslide.on{opacity:1;visibility:visible;transition-delay:0s}
+.sphoto{position:relative;overflow:hidden;aspect-ratio:16/10;display:grid;place-items:center;border-radius:26px;background:linear-gradient(135deg,#e3f3ef,#fff3d6);box-shadow:0 16px 26px -14px rgba(36,26,66,.35),inset 0 0 0 3px rgba(255,255,255,.7)}
+.sphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.sslide figcaption{margin-top:10px;font-size:.92rem;font-weight:700;color:#4a4560}
+.story-slider .ctrl{margin:8px 0 14px}
+@media(prefers-reduced-motion:reduce){.sslide{transition-duration:.01ms!important}}
