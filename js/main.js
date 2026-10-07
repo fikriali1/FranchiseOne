@@ -9,7 +9,7 @@ const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; count
 ["Richeese",250,"auto"],["Frutta Gelato",50,"self"],["Steak Indonesia Raya",50,"auto"],["Pertehmina",100,"self"],["Flat Burger",5,"self"],["Kebuli Yaman",20,"self"],["Bakmi Woy",30,"self"],
 ["Dapur Cokelat",88,"auto"],["Tahu Go",350,"self"],["Uena",25,"auto"],["Cipok",150,"self"],["Pertamilk",42,"self"],["Street Sushi",30,"auto"],["Sate Taichan",30,"self"],
 ["Burger King",170,"auto"],["Sei Sapi Mancuy",13,"auto"],["Bebek Terminal",50,"auto"],["Smuky",11,"self"],["Mamma Roti",110,"self"],["Cilok Djoedes",5,"self"],["Cendol Pandan",30,"self"],["Gocok",10,"self"],
-["RB 88"],["Donatsu"],["Prek Tea"],["Sooper Jet"]];
+["RB 88",40,"self"],["Donatsu",23,"self"],["Prek Tea",53,"self"]];
 const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Pertehmina":"https://www.instagram.com/pertehmina/",
 "Richeese":"https://order.richeesefactory.com/order/",
@@ -36,7 +36,6 @@ const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Gocok":"https://www.instagram.com/gocok.indonesia/",
 "RB 88":"https://www.rotibakar88.id",
 "Donatsu":"https://www.instagram.com/donatsu.official/",
-"Sooper Jet":"https://www.instagram.com/sooperjet.id/"
 };
 const I={
 start:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',
