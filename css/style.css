@@ -169,3 +169,7 @@ footer{margin-top:60px;padding:56px 0 24px;border-top:1px solid rgba(36,26,66,.0
 .sslide figcaption{margin-top:10px;font-size:.92rem;font-weight:700;color:#4a4560}
 .story-slider .ctrl{margin:8px 0 14px}
 @media(prefers-reduced-motion:reduce){.sslide{transition-duration:.01ms!important}}
+/* ===== Pre-filled message hint ===== */
+.hint{font-weight:700;color:var(--tdk);margin-top:-8px}
+.flash{animation:flashring 1.3s ease-out}
+@keyframes flashring{0%{box-shadow:0 0 0 0 rgba(83,183,166,.9)}100%{box-shadow:0 0 0 16px rgba(83,183,166,0)}}

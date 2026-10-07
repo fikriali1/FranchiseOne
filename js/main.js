@@ -1,5 +1,9 @@
 /* ===== Edit content here ===== */
 const BOOKING_URL="#contact"; // "Book a call" / "Schedule a session" buttons. Paste a booking-page address here (e.g. "https://cal.example.com/franchiseone"); until then they open the contact form.
+const TOPICS={ // starter message per booking button, keyed by service: [label used in the email subject, message shown in the form]
+people:["People","Hi, I need trained staff for my outlets. Could we book a call to discuss what I need?"],
+operation:["Operation","Hi, I'd like my outlets to run with less of my involvement. Could we book a call about managing operations and assets?"],
+consult:["Consultation","Hi, I'd like to schedule a session with your consultants."]};
 const QRAFTER_URL="#"; // PASTE THE QRAFTER WEBSITE ADDRESS BETWEEN THE QUOTES, e.g. "https://qrafter.example.com". Every Qrafter button on the page uses this one line.
 const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; counts are optional. Logo file: assets/brands/<name-with-dashes>.png
 ["Richeese",250,"auto"],["Frutta Gelato",50,"self"],["Steak Indonesia Raya",50,"auto"],["Pertehmina",100,"self"],["Flat Burger",5,"self"],["Kebuli Yaman",20,"self"],["Bakmi Woy",30,"self"],
@@ -8,7 +12,7 @@ const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; count
 ["RB 88"],["Donatsu"],["Prek Tea"],["Sooper Jet"]];
 const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Pertehmina":"https://www.instagram.com/pertehmina/",
-"Richeese":"https://order.richeesefactory.com/discovery/",
+"Richeese":"https://order.richeesefactory.com/order/",
 "Frutta Gelato":"https://fruttagelato.com",
 "Steak Indonesia Raya":"https://www.instagram.com/franchise_steak/",
 "Flat Burger":"https://www.instagram.com/flatburger.indonesia/",
@@ -20,8 +24,8 @@ const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Uena":"https://uenafood.com",
 "Pertamilk":"https://www.instagram.com/pertamilk.official/",
 "Street Sushi":"https://www.instagram.com/streetsushi.id/",
-"Sate Taichan":"https://www.taichannyot2.com/",
-"Burger King":"https://bkdelivery.co.id/about-us/",
+"Sate Taichan":"https://www.instagram.com/taichannyot2/",
+"Burger King":"https://bkdelivery.co.id",
 "Sei Sapi Mancuy":"https://www.instagram.com/seisapimancuy/",
 "Bebek Terminal":"https://www.instagram.com/bebekterminal/",
 "Smuky":"https://www.instagram.com/smuky.official/",
@@ -48,18 +52,18 @@ const STORY_PHOTOS=[ // Our Story slider. Files go in assets/team/ (png, jpg, jp
 ["story-1",""],["story-2",""],["story-3",""],["story-4",""],["story-5",""],["story-6",""]];
 const SERVICES=[
 ["people","People","We provide essential manpower by sourcing and training skilled blue-collar workers to build strong, capable franchise teams.",["Sourcing","Training"],"@b","Book a call"],
-["system","System","Our flagship Qrafter QR ordering system, plus SOPs, supply chain, inventory and CRM solutions, built with leading SaaS partners.",["Qrafter","SOP","CRM"],"@q","Meet Qrafter"],
+["system","System","Our flagship Qrafter QR ordering system, plus SOPs, supply chain, inventory and CRM solutions, built with leading SaaS partners.",["Qrafter","SOP","CRM"],"#qrafter","Meet Qrafter"],
 ["location","Location","An extensive listing of potential franchise sites in malls, commercial buildings, food courts or stalls, with detailed descriptions.",["Sites","Listings"],"#"],
 ["commerce","Commerce","A marketplace that connects franchisors with potential franchisees and helps package businesses, sites and payment methods.",["Marketplace","Payments"],"#"],
 ["operation","Operation","Comprehensive operational support for franchisees to manage assets and keep operations smooth and efficient.",["Assets","Support"],"@b","Book a call"],
 ["consult","Consultation","Advisory and hands-on execution across franchise management and growth, with solutions tailored to your challenges.",["Advisory","Growth"],"@b","Schedule a session"]];
-const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter website), link text]
+const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter website, "#qrafter" = Qrafter section on this page), link text]
 ["start","New to franchising","I want my first franchise","Never owned one? Find a brand that fits your budget, and a site that fits the brand.","#svc-commerce","Find my first franchise"],
 ["scale","Franchisor","I want to scale my brand","Tell us where you want to go. We'll help you plan the expansion and put the right pieces in place.","#svc-consult","Plan my expansion"],
 ["people","Franchise owner","I need people to run my outlets","Get trained, ready-to-work teams for your kitchen and counter.","#svc-people","Build my outlet team"],
 ["operation","Franchise owner","I want my business to run itself","Step back from the daily grind. We'll help manage the operations and assets behind your outlets.","#svc-operation","Put it on autopilot"],
 ["consult","Stuck?","My business is stuck","Something isn't working. Tell us where it hurts and we'll help you find the way forward.","#svc-consult","Find what's holding me back"],
-["qr","Restaurant","My orders are a mess","Long lines, slow kitchens, confused waiters? Put ordering and tables in one system.","@q","Fix my order flow"]];
+["qr","Restaurant","My orders are a mess","Long lines, slow kitchens, confused waiters? Put ordering and tables in one system.","#qrafter","Fix my order flow"]];
 const QUOTES=[
 ["Andika","CEO of TGR Group","Partnering with FranchiseOne has been a game-changer for TGR Group. Their fast response times and professional problem-solving have effectively addressed numerous challenges in our franchise expansion journey."],
 ["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible."],
@@ -79,8 +83,8 @@ const m=$('#marq');BRANDS.forEach(b=>m.append(tile(b[0])));BRANDS.forEach(b=>{co
 BRANDS.forEach(([n,c,k])=>{const t=tile(n),u=LINKS[n]||'#';
 if(c)t.insertAdjacentHTML('beforeend',`<div class="meta"><span class="stat"><b class="count" data-n="${c}">${c}+</b>Branches</span>${k?`<em class="mdl ${k}">${MODEL[k]}</em>`:''}</div>`);
 t.insertAdjacentHTML('beforeend',`<div class="curtain"><a class="visit" href="${u}"${u[0]=='h'?' target="_blank" rel="noopener"':''} aria-label="Visit ${n} website"><span class="dot">↗</span>Visit us <i>→</i></a></div>`);$('#logos').append(t)});
-const lnk=(h,t,c='')=>h=='@q'?`<a class="more ${c}" href="#" data-qrafter>${t} <i>→</i></a>`:h=='@b'?`<a class="more ${c}" href="#contact" data-booking>${t} <i>→</i></a>`:`<a class="more ${c}" href="${h}">${t} <i>→</i></a>`;
-$('#services-grid').innerHTML=SERVICES.map((s,i)=>`<article id="svc-${s[0]}" class="clay card tilt"><span class="num">0${i+1}</span><div class="ico"><svg viewBox="0 0 24 24">${I[s[0]]}</svg></div><h3>${s[1]}</h3><p>${s[2]}</p><div class="tags">${s[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>${s[4]?lnk(s[4],s[5]||'Click Here'):`<span class="more" aria-hidden="true" style="visibility:hidden">&nbsp;</span>`}</article>`).join('');
+const lnk=(h,t,c='',k='')=>h=='@q'?`<a class="more ${c}" href="#" data-qrafter>${t} <i>→</i></a>`:h=='@b'?`<a class="more ${c}" href="#contact" data-booking data-topic="${k}">${t} <i>→</i></a>`:`<a class="more ${c}" href="${h}">${t} <i>→</i></a>`;
+$('#services-grid').innerHTML=SERVICES.map((s,i)=>`<article id="svc-${s[0]}" class="clay card tilt"><span class="num">0${i+1}</span><div class="ico"><svg viewBox="0 0 24 24">${I[s[0]]}</svg></div><h3>${s[1]}</h3><p>${s[2]}</p><div class="tags">${s[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>${s[4]?lnk(s[4],s[5]||'Click Here','',s[0]):`<span class="more" aria-hidden="true" style="visibility:hidden">&nbsp;</span>`}</article>`).join('');
 $('#paths').innerHTML=PATHS.map(p=>`<article class="clay card path tilt"><div class="ico"><svg viewBox="0 0 24 24">${I[p[0]]}</svg></div><small class="lbl">${p[1]}</small><h3>${p[2]}</h3><p>${p[3]}</p>${lnk(p[4],p[5])}</article>`).join('');
 [['[data-qrafter]',QRAFTER_URL],['[data-booking]',BOOKING_URL]].forEach(([q,u])=>document.querySelectorAll(q).forEach(a=>{a.href=u;if(/^https?:/.test(u)){a.target='_blank';a.rel='noopener'}}));
 $('#quotes').innerHTML=QUOTES.map(q=>`<figure class="clay card quote tilt"><p>“${q[2]}”</p><h3>${q[0]}</h3><small>${q[1]}</small></figure>`).join('');
@@ -91,7 +95,8 @@ const links=[...nav.querySelectorAll('a:not(.btn)')];
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.hash=='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
 links.forEach(a=>{const s=document.querySelector(a.hash);s&&io.observe(s)});
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&matchMedia('(hover:hover)').matches)document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-10px)`});c.addEventListener('mouseleave',()=>c.style.transform='')});
-$('#form').onsubmit=e=>{e.preventDefault();const f=e.target;const body=`Name: ${f.name.value}\nEmail: ${f.email.value}\nPhone: ${f.phone.value}\n\n${f.msg.value}`;location.href=`mailto:info@franchise.one?subject=${encodeURIComponent('Website inquiry from '+f.name.value)}&body=${encodeURIComponent(body)}`};
+const mailto=f=>{const t=f.dataset.topic,body=`Name: ${f.name.value}\nEmail: ${f.email.value}\nPhone: ${f.phone.value}\n\n${f.msg.value}`;return `mailto:info@franchise.one?subject=${encodeURIComponent((t?'['+t+'] ':'')+'Website inquiry from '+f.name.value)}&body=${encodeURIComponent(body)}`};
+$('#form').onsubmit=e=>{e.preventDefault();location.href=mailto(e.target)};
 /* ===== Counter animation: counts up when a number scrolls into view ===== */
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const run=e=>{const n=+e.dataset.n,t0=performance.now(),f=t=>{const p=Math.min((t-t0)/1400,1);e.textContent=Math.round(n*(1-Math.pow(1-p,3)))+'+';p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)};
@@ -120,3 +125,9 @@ const find=b=>new Promise(r=>{let k=0;const next=()=>{if(k>=EX.length)return r(n
 Promise.all(STORY_PHOTOS.map(([b,c])=>find(b).then(u=>u&&[u,c]))).then(a=>{a=a.filter(Boolean);
 box.innerHTML=a.length?a.map(([u,c],n)=>`<figure class="sslide"><div class="sphoto"><img src="${u}" alt="${c||'Franchise One story photo '+(n+1)}"></div>${c?`<figcaption>${c}</figcaption>`:''}</figure>`).join(''):`<figure class="sslide"><div class="sphoto"><span class="ph">Our story photos<small>assets/team/${STORY_PHOTOS[0][0]}.jpg</small></span></div></figure>`;
 if(a.length<2)sl.querySelector('.ctrl').hidden=true;initSlider(sl,{slide:'.sslide',ms:5500,view:true})})})();
+/* ===== Booking buttons: scroll to the contact form and pre-fill the message (only while BOOKING_URL is not an external page) ===== */
+(()=>{if(/^https?:/.test(BOOKING_URL))return;const f=$('#form'),hint=$('#hint'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.querySelectorAll('[data-booking]').forEach(a=>a.addEventListener('click',e=>{const T=TOPICS[a.dataset.topic];if(!T)return;e.preventDefault();
+const m=f.elements.msg;if(!m.value.trim()||m.value===f.dataset.pre){m.value=T[1];f.dataset.pre=T[1];hint.hidden=false;m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash')}
+f.dataset.topic=T[0];$('#contact').scrollIntoView({behavior:rm?'auto':'smooth'});
+if(matchMedia('(hover:hover)').matches)f.elements.name.focus({preventScroll:true})}))})();
