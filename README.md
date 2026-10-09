@@ -1,7 +1,5 @@
 # Franchise One – static website
 
-Plain HTML/CSS/JS. No build step.
-
 ## Publish on GitHub Pages
 1. Push this folder's contents to a repo (files at the repo root).
 2. Settings → Pages → Deploy from branch → `main` / root.
