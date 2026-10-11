@@ -3,7 +3,9 @@ const BOOKING_URL="#contact"; // "Book a call" / "Schedule a session" buttons. P
 const TOPICS={ // starter message per booking button, keyed by service: [label used in the email subject, message shown in the form]
 people:["People","Hi, I need trained staff for my outlets. Could we book a call to discuss what I need?"],
 operation:["Operation","Hi, I'd like my outlets to run with less of my involvement. Could we book a call about managing operations and assets?"],
-consult:["Consultation","Hi, I'd like to schedule a session with your consultants."]};
+consult:["Consultation","Hi, I'd like to schedule a session with your consultants."],
+location:["Location","Hi, I'm looking for a location for my franchise outlet. Could we book a call to talk about the available sites?"],
+commerce:["Commerce","Hi, I'm interested in a franchise brand and site through your marketplace. Could we book a call to talk about my options?"]};
 const QRAFTER_URL="#"; // PASTE THE QRAFTER WEBSITE ADDRESS BETWEEN THE QUOTES, e.g. "https://qrafter.example.com". Every Qrafter button on the page uses this one line.
 const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; counts are optional. Logo file: assets/brands/<name-with-dashes>.png
 ["Richeese",250,"auto"],["Frutta Gelato",50,"self"],["Steak Indonesia Raya",50,"auto"],["Pertehmina",100,"self"],["Flat Burger",5,"self"],["Kebuli Yaman",20,"self"],["Bakmi Woy",30,"self"],
@@ -35,7 +37,7 @@ const LINKS={ // brand website or Instagram per brand. Missing = "#" (dummy)
 "Cilok Djoedes":"http://www.cilokdjoedes.com",
 "Gocok":"https://www.instagram.com/gocok.indonesia/",
 "RB 88":"https://www.rotibakar88.id",
-"Donatsu":"https://www.instagram.com/donatsu.official/",
+"Donatsu":"https://www.instagram.com/donatsu.official/"
 };
 const I={
 start:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',
@@ -52,8 +54,8 @@ const STORY_PHOTOS=[ // Our Story slider. Files go in assets/team/ (png, jpg, jp
 const SERVICES=[
 ["people","People","We provide essential manpower by sourcing and training skilled blue-collar workers to build strong, capable franchise teams.",["Sourcing","Training"],"@b","Book a call"],
 ["system","System","Our flagship Qrafter QR ordering system, plus SOPs, supply chain, inventory and CRM solutions, built with leading SaaS partners.",["Qrafter","SOP","CRM"],"#qrafter","Meet Qrafter"],
-["location","Location","An extensive listing of potential franchise sites in malls, commercial buildings, food courts or stalls, with detailed descriptions.",["Sites","Listings"],"#"],
-["commerce","Commerce","A marketplace that connects franchisors with potential franchisees and helps package businesses, sites and payment methods.",["Marketplace","Payments"],"#"],
+["location","Location","An extensive listing of potential franchise sites in malls, commercial buildings, food courts or stalls, with detailed descriptions.",["Sites","Listings"],"@b","Book a call"],
+["commerce","Commerce","A marketplace that connects franchisors with potential franchisees and helps package businesses, sites and payment methods.",["Marketplace","Payments"],"@b","Book a call"],
 ["operation","Operation","Comprehensive operational support for franchisees to manage assets and keep operations smooth and efficient.",["Assets","Support"],"@b","Book a call"],
 ["consult","Consultation","Advisory and hands-on execution across franchise management and growth, with solutions tailored to your challenges.",["Advisory","Growth"],"@b","Schedule a session"]];
 const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter website, "#qrafter" = Qrafter section on this page), link text]
@@ -102,8 +104,9 @@ const run=e=>{const n=+e.dataset.n,t0=performance.now(),f=t=>{const p=Math.min((
 const co=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){co.unobserve(x.target);run(x.target)}}),{threshold:.6});
 if(!RM)document.querySelectorAll('.count').forEach(e=>{e.textContent='0+';co.observe(e)});
 /* ===== Theme switcher: remove the .themes block in index.html to hide it ===== */
-const th=$('.themes'),mark=()=>th.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t==document.documentElement.dataset.theme));
-th.onclick=e=>{const b=e.target.closest('button');if(!b)return;document.documentElement.dataset.theme=b.dataset.t;try{localStorage.setItem('f1theme',b.dataset.t)}catch(x){}mark()};mark();
+/* Theme switcher is disabled (cream is the permanent theme). Re-enable together with the .themes block and theme-init script in index.html. */
+const th=$('.themes');if(th){const mark=()=>th.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t==document.documentElement.dataset.theme));
+th.onclick=e=>{const b=e.target.closest('button');if(!b)return;document.documentElement.dataset.theme=b.dataset.t;try{localStorage.setItem('f1theme',b.dataset.t)}catch(x){}mark()};mark();}
 /* ===== Sliders (hero + Our Story): auto-advance, pause on hover/focus, swipe, dots. Hero has pause button; reduced motion = no autoplay ===== */
 const initSlider=(sl,o={})=>{const S=[...sl.querySelectorAll(o.slide||'.slide')],dots=sl.querySelector('.dots'),pp=sl.querySelector('.pp'),live=sl.querySelector('.slides'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches,ms=o.ms||6500;let i=0,t=null,user=rm,vis=!o.view,hold=false;
 const go=n=>{i=(n+S.length)%S.length;S.forEach((s,k)=>{s.classList.toggle('on',k==i);s.setAttribute('aria-hidden',k!=i)});[...dots.children].forEach((b,k)=>b.setAttribute('aria-current',k==i))};
