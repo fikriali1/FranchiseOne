@@ -65,12 +65,12 @@ const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter websit
 ["operation","Franchise owner","I want my business to run itself","Step back from the daily grind. We'll help manage the operations and assets behind your outlets.","#svc-operation","Put it on autopilot"],
 ["consult","Stuck?","My business is stuck","Something isn't working. Tell us where it hurts and we'll help you find the way forward.","#svc-consult","Find what's holding me back"],
 ["qr","Restaurant","My orders are a mess","Long lines, slow kitchens, confused waiters? Put ordering and tables in one system.","#qrafter","Fix my order flow"]];
-const QUOTES=[
-["Andika","CEO of TGR Group","Partnering with FranchiseOne has been a game-changer for TGR Group. Their fast response times and professional problem-solving have effectively addressed numerous challenges in our franchise expansion journey."],
-["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible."],
-["Prima Alverina","Founder & CEO of Mamma Roti","Since partnering with FranchiseOne, Mamma Roti has experienced significant growth. Their swift assistance in finding ideal locations has allowed us to expand strategically."],
-["Yunita Astrid","Franchisee","FranchiseOne has been a vital partner in my entrepreneurial journey. They help curate brands and offer comprehensive software solutions, as well as detailed operational training."],
-["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable."]];
+const QUOTES=[ // [name, title, quote, photo filename (without extension, in assets/testimonials/)]
+["Andika","CEO of TGR Group","Partnering with FranchiseOne has been a game-changer for TGR Group. Their fast response times and professional problem-solving have effectively addressed numerous challenges in our franchise expansion journey.","andika"],
+["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible.","ade"],
+["Prima Alverina","Founder & CEO of Mamma Roti","Since partnering with FranchiseOne, Mamma Roti has experienced significant growth. Their swift assistance in finding ideal locations has allowed us to expand strategically.","prima-alverina"],
+["Yunita Astrid","Franchisee","FranchiseOne has been a vital partner in my entrepreneurial journey. They help curate brands and offer comprehensive software solutions, as well as detailed operational training.","yunita-astrid"],
+["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable.","yulia-khu"]];
 const NEWS=[ // [title, summary, date, article link]
 
 ["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/"],
@@ -80,7 +80,10 @@ const NEWS=[ // [title, summary, date, article link]
 const $=s=>document.querySelector(s),slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-$/,'');
 const tile=n=>{const d=document.createElement('div'),l=document.createElement('div'),i=new Image();d.className='logo-tile';l.className='lg';i.alt=n;i.src='assets/brands/'+slug(n)+'.png';i.onerror=()=>i.replaceWith(n);l.append(i);d.append(l);return d};
 const MODEL={auto:'AutoPilot',self:'Self manage'};
-const m=$('#marq');BRANDS.forEach(b=>m.append(tile(b[0])));BRANDS.forEach(b=>{const t=tile(b[0]);t.setAttribute('aria-hidden','true');m.append(t)});
+const allNames=BRANDS.map(b=>b[0]);
+const lsCard=name=>{const c=document.createElement('div');c.className='ls-card';const i=new Image();i.alt=name;i.src='assets/brands/'+slug(name)+'.png';i.onerror=()=>i.replaceWith(name);c.append(i);return c};
+const fillRow=(id,names)=>{const row=$(id);names.forEach(n=>row.append(lsCard(n)));names.forEach(n=>{const c=lsCard(n);c.setAttribute('aria-hidden','true');row.append(c)})};
+fillRow('#ls-row1',allNames);fillRow('#ls-row2',allNames);
 BRANDS.forEach(([n,c,k])=>{const t=tile(n),u=LINKS[n]||'#';
 if(c)t.insertAdjacentHTML('beforeend',`<div class="meta"><span class="stat"><b class="count" data-n="${c}">${c}+</b>Branches</span>${k?`<em class="mdl ${k}">${MODEL[k]}</em>`:''}</div>`);
 t.insertAdjacentHTML('beforeend',`<div class="curtain"><a class="visit" href="${u}"${u[0]=='h'?' target="_blank" rel="noopener"':''} aria-label="Visit ${n} website"><span class="dot">↗</span>Visit us <i>→</i></a></div>`);$('#logos').append(t)});
@@ -88,18 +91,32 @@ const lnk=(h,t,c='',k='')=>h=='@q'?`<a class="more ${c}" href="#" data-qrafter>$
 $('#services-grid').innerHTML=SERVICES.map((s,i)=>`<article id="svc-${s[0]}" class="clay card tilt"><span class="num">0${i+1}</span><div class="ico"><svg viewBox="0 0 24 24">${I[s[0]]}</svg></div><h3>${s[1]}</h3><p>${s[2]}</p><div class="tags">${s[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>${s[4]?lnk(s[4],s[5]||'Click Here','',s[0]):`<span class="more" aria-hidden="true" style="visibility:hidden">&nbsp;</span>`}</article>`).join('');
 $('#paths').innerHTML=PATHS.map(p=>`<article class="clay card path tilt"><div class="ico"><svg viewBox="0 0 24 24">${I[p[0]]}</svg></div><small class="lbl">${p[1]}</small><h3>${p[2]}</h3><p>${p[3]}</p>${lnk(p[4],p[5])}</article>`).join('');
 [['[data-qrafter]',QRAFTER_URL],['[data-booking]',BOOKING_URL]].forEach(([q,u])=>document.querySelectorAll(q).forEach(a=>{a.href=u;if(/^https?:/.test(u)){a.target='_blank';a.rel='noopener'}}));
-$('#quotes').innerHTML=QUOTES.map(q=>`<figure class="clay card quote tilt"><p>“${q[2]}”</p><h3>${q[0]}</h3><small>${q[1]}</small></figure>`).join('');
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+(()=>{const imgs=$('#ct-images'),txt=$('#ct-text'),N=QUOTES.length;let active=0,timer;
+const mkAv=name=>{const d=document.createElement('div');d.className='ct-avatar';d.textContent=name.split(' ').map(w=>w[0]).join('').slice(0,2);return d};
+QUOTES.forEach(([name,title,quote,photo],i)=>{const el=document.createElement('div');el.className='ct-img';el.dataset.index=i;
+const img=new Image();img.src='assets/testimonials/'+photo+'.jpg';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv(name))};el.append(img);imgs.append(el)});
+function upd(){const gap=Math.max(60,imgs.offsetWidth*.07),su=gap*.8;
+document.querySelectorAll('.ct-img').forEach((el,i)=>{const l=(active-1+N)%N,r=(active+1)%N;
+if(i===active)el.style.cssText='z-index:3;opacity:1;transform:translateX(0) translateY(0) scale(1) rotateY(0deg)';
+else if(i===l)el.style.cssText='z-index:2;opacity:1;transform:translateX(-'+gap+'px) translateY(-'+su+'px) scale(.85) rotateY(15deg)';
+else if(i===r)el.style.cssText='z-index:2;opacity:1;transform:translateX('+gap+'px) translateY(-'+su+'px) scale(.85) rotateY(-15deg)';
+else el.style.cssText='z-index:1;opacity:0'});
+const[name,title,quote]=QUOTES[active];
+txt.innerHTML='<h3 class=”ct-name”>'+name+'</h3><p class=”ct-title”>'+title+'</p><p class=”ct-quote”>'+quote.split(' ').map((w,i)=>'<span class=”ct-word” style=”animation-delay:'+i*25+'ms”>'+w+' </span>').join('')+'</p>'}
+function next(){active=(active+1)%N;upd();rst()}function prev(){active=(active-1+N)%N;upd();rst()}
+function rst(){clearInterval(timer);if(!RM)timer=setInterval(next,5000)}
+$('#ct-prev').onclick=prev;$('#ct-next').onclick=next;upd();if(!RM)timer=setInterval(next,5000)})();
 $('#news').innerHTML=NEWS.map(n=>`<article class="clay card tilt"><span class="date">${n[2]}</span><h3>${n[0]}</h3><p>${n[1]}</p><a class="more" href="${n[3]||'#'}"${n[3]?' target="_blank" rel="noopener"':''}>Read more <i>→</i></a></article>`).join('');
 /* ===== Interactions ===== */
 const nav=$('#nav'),btn=$('.menu');btn.onclick=()=>btn.setAttribute('aria-expanded',nav.classList.toggle('open'));nav.onclick=e=>{if(e.target.tagName=='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}};
 const links=[...nav.querySelectorAll('a:not(.btn)')];
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.hash=='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
 links.forEach(a=>{const s=document.querySelector(a.hash);s&&io.observe(s)});
-if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&matchMedia('(hover:hover)').matches)document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-10px)`});c.addEventListener('mouseleave',()=>c.style.transform='')});
+if(!RM&&matchMedia('(hover:hover)').matches)document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-10px)`});c.addEventListener('mouseleave',()=>c.style.transform='')});
 const mailto=f=>{const t=f.dataset.topic,body=`Name: ${f.name.value}\nEmail: ${f.email.value}\nPhone: ${f.phone.value}\n\n${f.msg.value}`;return `mailto:info@franchise.one?subject=${encodeURIComponent((t?'['+t+'] ':'')+'Website inquiry from '+f.name.value)}&body=${encodeURIComponent(body)}`};
 $('#form').onsubmit=e=>{e.preventDefault();location.href=mailto(e.target)};
 /* ===== Counter animation: counts up when a number scrolls into view ===== */
-const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const run=e=>{const n=+e.dataset.n,t0=performance.now(),f=t=>{const p=Math.min((t-t0)/1400,1);e.textContent=Math.round(n*(1-Math.pow(1-p,3)))+'+';p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)};
 const co=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){co.unobserve(x.target);run(x.target)}}),{threshold:.6});
 if(!RM)document.querySelectorAll('.count').forEach(e=>{e.textContent='0+';co.observe(e)});
