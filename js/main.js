@@ -66,16 +66,13 @@ const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter websit
 ["consult","Stuck?","My business is stuck","Something isn't working. Tell us where it hurts and we'll help you find the way forward.","#svc-consult","Find what's holding me back"],
 ["qr","Restaurant","My orders are a mess","Long lines, slow kitchens, confused waiters? Put ordering and tables in one system.","#qrafter","Fix my order flow"]];
 const QUOTES=[ // [name, title, quote, photo filename (without extension, in assets/testimonials/)]
-["Andika","CEO of TGR Group","Partnering with FranchiseOne has been a game-changer for TGR Group. Their fast response times and professional problem-solving have effectively addressed numerous challenges in our franchise expansion journey.","andika"],
 ["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible.","ade"],
 ["Prima Alverina","Founder & CEO of Mamma Roti","Since partnering with FranchiseOne, Mamma Roti has experienced significant growth. Their swift assistance in finding ideal locations has allowed us to expand strategically.","prima-alverina"],
-["Yunita Astrid","Franchisee","FranchiseOne has been a vital partner in my entrepreneurial journey. They help curate brands and offer comprehensive software solutions, as well as detailed operational training.","yunita-astrid"],
-["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable.","yulia-khu"]];
-const NEWS=[ // [title, summary, date, article link]
-
-["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/"],
-["FranchiseOne Menyajikan TahuGo dan Bebek Terminal: Dari Camilan Lokal ke Panggung Global","Pada hari ketiga acara “FranchiseOne Open House: Your Business Starter Kit”, talkshow bertema “Franchising, From Local to Global” digelar di Central Park Mall.","February 18, 2025","https://jogjaaja.com/read/franchise-one-menyajikan-tahu-go-dan-bebek-terminal-dari-camilan-lokal-ke-panggung-global"],
-["FranchiseOne Open House: Bundling Pembelian Franchise dengan Properti Agung Podomoro Land","FranchiseOne, platform ekspansi franchise bertenaga AI pertama di Indonesia, bermitra dengan APL Group untuk “Your Business Starter Kit”, 7-9 Februari 2025.","February 7, 2025","https://www.vritimes.com/id/articles/ee62bb93-1981-11ef-ae09-0a58a9feac02/3fa81df0-e51e-11ef-a070-0a58a9feac02"]];
+["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable.",""]];
+const NEWS=[ // [title, summary, date, article link, image (optional)]
+["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/","assets/news/ifbc-2025.jpg"],
+["FranchiseOne Menyajikan TahuGo dan Bebek Terminal: Dari Camilan Lokal ke Panggung Global",'Pada acara Open House FranchiseOne, talkshow bertema "Franchising, From Local to Global" menampilkan dua brand kuliner, TahuGo dan Bebek Terminal.',"February 9, 2025","https://faktual.co.id/franchiseone-menyajikan-tahugo-dan-bebek-terminal-dari-camilan-lokal-ke-panggung-global/","assets/news/tahugo-bebek-terminal.jpg"],
+["FranchiseOne Open House: Bundling Pembelian Franchise dengan Properti Agung Podomoro Land",'FranchiseOne, platform ekspansi franchise bertenaga AI pertama di Indonesia, bermitra dengan APL Group untuk "Your Business Starter Kit", 7-9 Februari 2025.',"February 7, 2025","https://www.vritimes.com/id/articles/ee62bb93-1981-11ef-ae09-0a58a9feac02/3fa81df0-e51e-11ef-a070-0a58a9feac02","assets/news/open-house-apl.jpg"]];
 /* ===== Rendering ===== */
 const $=s=>document.querySelector(s),slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-$/,'');
 const tile=n=>{const d=document.createElement('div'),l=document.createElement('div'),i=new Image();d.className='logo-tile';l.className='lg';i.alt=n;i.src='assets/brands/'+slug(n)+'.png';i.onerror=()=>i.replaceWith(n);l.append(i);d.append(l);return d};
@@ -93,9 +90,10 @@ $('#paths').innerHTML=PATHS.map(p=>`<article class="clay card path tilt"><div cl
 [['[data-qrafter]',QRAFTER_URL],['[data-booking]',BOOKING_URL]].forEach(([q,u])=>document.querySelectorAll(q).forEach(a=>{a.href=u;if(/^https?:/.test(u)){a.target='_blank';a.rel='noopener'}}));
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 (()=>{const imgs=$('#ct-images'),txt=$('#ct-text'),N=QUOTES.length;let active=0,timer;
-const mkAv=name=>{const d=document.createElement('div');d.className='ct-avatar';d.textContent=name.split(' ').map(w=>w[0]).join('').slice(0,2);return d};
+const mkAv=()=>{const d=document.createElement('div');d.className='ct-avatar';d.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 00-16 0"/></svg>';return d};
 QUOTES.forEach(([name,title,quote,photo],i)=>{const el=document.createElement('div');el.className='ct-img';el.dataset.index=i;
-const img=new Image();img.src='assets/testimonials/'+photo+'.jpg';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv(name))};el.append(img);imgs.append(el)});
+if(photo){const img=new Image();img.src='assets/testimonials/'+photo+'.jpg';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv())};el.append(img)}else{el.append(mkAv())}
+imgs.append(el)});
 function upd(){const gap=Math.max(60,imgs.offsetWidth*.07),su=gap*.8;
 document.querySelectorAll('.ct-img').forEach((el,i)=>{const l=(active-1+N)%N,r=(active+1)%N;
 if(i===active)el.style.cssText='z-index:3;opacity:1;transform:translateX(0) translateY(0) scale(1) rotateY(0deg)';
@@ -107,7 +105,9 @@ txt.innerHTML='<h3 class=”ct-name”>'+name+'</h3><p class=”ct-title”>'+ti
 function next(){active=(active+1)%N;upd();rst()}function prev(){active=(active-1+N)%N;upd();rst()}
 function rst(){clearInterval(timer);if(!RM)timer=setInterval(next,5000)}
 $('#ct-prev').onclick=prev;$('#ct-next').onclick=next;upd();if(!RM)timer=setInterval(next,5000)})();
-$('#news').innerHTML=NEWS.map(n=>`<article class="clay card tilt"><span class="date">${n[2]}</span><h3>${n[0]}</h3><p>${n[1]}</p><a class="more" href="${n[3]||'#'}"${n[3]?' target="_blank" rel="noopener"':''}>Read more <i>→</i></a></article>`).join('');
+(()=>{const f=NEWS[0],rest=NEWS.slice(1);
+$('#news').innerHTML=`<article class="clay news-feat tilt"><div class="news-img">${f[4]?`<img src="${f[4]}" alt="" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-body"><div class="news-meta"><span class="tag">Media</span><span class="date">${f[2]}</span></div><h3><span>${f[0]}</span></h3><p>${f[1]}</p><a class="btn pri sm" href="${f[3]}" target="_blank" rel="noopener">Read the full article <i>→</i></a></div></article>`+
+`<div class="grid3 news-grid">${rest.map(n=>`<article class="clay card tilt"><div class="news-img sm">${n[4]?`<img src="${n[4]}" alt="" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-meta"><span class="tag">Media</span><span class="date">${n[2]}</span></div><h3>${n[0]}</h3><p>${n[1]}</p><a class="more" href="${n[3]||'#'}" target="_blank" rel="noopener">Read more <i>→</i></a></article>`).join('')}</div>`})();
 /* ===== Interactions ===== */
 const nav=$('#nav'),btn=$('.menu');btn.onclick=()=>btn.setAttribute('aria-expanded',nav.classList.toggle('open'));nav.onclick=e=>{if(e.target.tagName=='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}};
 const links=[...nav.querySelectorAll('a:not(.btn)')];
