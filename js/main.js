@@ -7,7 +7,7 @@ consult:["Consultation","Hi, I'd like to schedule a session with your consultant
 location:["Location","Hi, I'm looking for a location for my franchise outlet. Could we book a call to talk about the available sites?"],
 commerce:["Commerce","Hi, I'm interested in a franchise brand and site through your marketplace. Could we book a call to talk about my options?"]};
 const QRAFTER_URL="#"; // PASTE THE QRAFTER WEBSITE ADDRESS BETWEEN THE QUOTES, e.g. "https://qrafter.example.com". Every Qrafter button on the page uses this one line.
-const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; counts are optional. Logo file: assets/brands/<name-with-dashes>.png
+const BRANDS=[ // [name, branches, "auto"=AutoPilot | "self"=Self manage]; counts are optional. Logo file: assets/brands/<name-with-dashes>.webp
 ["Richeese",250,"auto"],["Frutta Gelato",50,"self"],["Steak Indonesia Raya",50,"auto"],["Pertehmina",100,"self"],["Flat Burger",5,"self"],["Kebuli Yaman",20,"self"],["Bakmi Woy",30,"self"],
 ["Dapur Cokelat",88,"auto"],["Tahu Go",350,"self"],["Uena",25,"auto"],["Cipok",150,"self"],["Pertamilk",42,"self"],["Street Sushi",30,"auto"],["Sate Taichan",30,"self"],
 ["Burger King",170,"auto"],["Sei Sapi Mancuy",13,"auto"],["Bebek Terminal",50,"auto"],["Smuky",11,"self"],["Mamma Roti",110,"self"],["Cilok Djoedes",5,"self"],["Cendol Pandan",30,"self"],["Gocok",10,"self"],
@@ -78,7 +78,7 @@ const $=s=>document.querySelector(s),slug=n=>n.toLowerCase().replace(/[^a-z0-9]+
 const tile=n=>{const d=document.createElement('div'),l=document.createElement('div'),i=new Image();d.className='logo-tile';l.className='lg';i.alt=n;i.src='assets/brands/'+slug(n)+'.webp';i.onerror=()=>i.replaceWith(n);l.append(i);d.append(l);return d};
 const MODEL={auto:'AutoPilot',self:'Self manage'};
 const allNames=BRANDS.map(b=>b[0]);
-const lsCard=name=>{const c=document.createElement('div');c.className='ls-card';const i=new Image();i.alt=name;i.src='assets/brands/'+slug(name)+'.png';i.onerror=()=>i.replaceWith(name);c.append(i);return c};
+const lsCard=name=>{const c=document.createElement('div');c.className='ls-card';const i=new Image();i.alt=name;i.src='assets/brands/'+slug(name)+'.webp';i.onerror=()=>i.replaceWith(name);c.append(i);return c};
 const fillRow=(id,names)=>{const row=$(id);names.forEach(n=>row.append(lsCard(n)));names.forEach(n=>{const c=lsCard(n);c.setAttribute('aria-hidden','true');row.append(c)})};
 fillRow('#ls-row1',allNames);fillRow('#ls-row2',allNames);
 BRANDS.forEach(([n,c,k])=>{const t=tile(n),u=LINKS[n]||'#';
