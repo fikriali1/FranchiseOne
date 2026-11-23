@@ -70,12 +70,12 @@ const QUOTES=[ // [name, title, quote, photo filename (without extension, in ass
 ["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible.","ade"],
 ["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable.",""]];
 const NEWS=[ // [title, summary, date, article link, image (optional)]
-["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/","assets/news/ifbc-2025.jpg"],
-["FranchiseOne Menyajikan TahuGo dan Bebek Terminal: Dari Camilan Lokal ke Panggung Global",'Pada acara Open House FranchiseOne, talkshow bertema "Franchising, From Local to Global" menampilkan dua brand kuliner, TahuGo dan Bebek Terminal.',"February 9, 2025","https://faktual.co.id/franchiseone-menyajikan-tahugo-dan-bebek-terminal-dari-camilan-lokal-ke-panggung-global/","assets/news/tahugo-bebek-terminal.jpg"],
-["FranchiseOne Open House: Bundling Pembelian Franchise dengan Properti Agung Podomoro Land",'FranchiseOne, platform ekspansi franchise bertenaga AI pertama di Indonesia, bermitra dengan APL Group untuk "Your Business Starter Kit", 7-9 Februari 2025.',"February 7, 2025","https://www.vritimes.com/id/articles/ee62bb93-1981-11ef-ae09-0a58a9feac02/3fa81df0-e51e-11ef-a070-0a58a9feac02","assets/news/open-house-apl.jpg"]];
+["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/","assets/news/ifbc-2025.webp"],
+["FranchiseOne Menyajikan TahuGo dan Bebek Terminal: Dari Camilan Lokal ke Panggung Global",'Pada acara Open House FranchiseOne, talkshow bertema "Franchising, From Local to Global" menampilkan dua brand kuliner, TahuGo dan Bebek Terminal.',"February 9, 2025","https://faktual.co.id/franchiseone-menyajikan-tahugo-dan-bebek-terminal-dari-camilan-lokal-ke-panggung-global/","assets/news/tahugo-bebek-terminal.webp"],
+["FranchiseOne Open House: Bundling Pembelian Franchise dengan Properti Agung Podomoro Land",'FranchiseOne, platform ekspansi franchise bertenaga AI pertama di Indonesia, bermitra dengan APL Group untuk "Your Business Starter Kit", 7-9 Februari 2025.',"February 7, 2025","https://www.vritimes.com/id/articles/ee62bb93-1981-11ef-ae09-0a58a9feac02/3fa81df0-e51e-11ef-a070-0a58a9feac02","assets/news/open-house-apl.webp"]];
 /* ===== Rendering ===== */
 const $=s=>document.querySelector(s),slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-$/,'');
-const tile=n=>{const d=document.createElement('div'),l=document.createElement('div'),i=new Image();d.className='logo-tile';l.className='lg';i.alt=n;i.src='assets/brands/'+slug(n)+'.png';i.onerror=()=>i.replaceWith(n);l.append(i);d.append(l);return d};
+const tile=n=>{const d=document.createElement('div'),l=document.createElement('div'),i=new Image();d.className='logo-tile';l.className='lg';i.alt=n;i.src='assets/brands/'+slug(n)+'.webp';i.onerror=()=>i.replaceWith(n);l.append(i);d.append(l);return d};
 const MODEL={auto:'AutoPilot',self:'Self manage'};
 const allNames=BRANDS.map(b=>b[0]);
 const lsCard=name=>{const c=document.createElement('div');c.className='ls-card';const i=new Image();i.alt=name;i.src='assets/brands/'+slug(name)+'.png';i.onerror=()=>i.replaceWith(name);c.append(i);return c};
@@ -92,7 +92,7 @@ const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 (()=>{const ct=$('#ct'),imgs=$('#ct-images'),txt=$('#ct-text'),N=QUOTES.length;let active=0,timer,onscreen=true;
 const mkAv=()=>{const d=document.createElement('div');d.className='ct-avatar';const ic=document.createElement('div');ic.className='ct-person';d.append(ic);return d};
 QUOTES.forEach(([name,title,quote,photo],i)=>{const el=document.createElement('div');el.className='ct-img';el.dataset.index=i;
-if(photo){const img=new Image();img.src='assets/testimonials/'+photo+'.jpg';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv())};el.append(img)}else{el.append(mkAv())}
+if(photo){const img=new Image();img.src='assets/testimonials/'+photo+'.webp';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv())};el.append(img)}else{el.append(mkAv())}
 imgs.append(el)});
 function upd(){const gap=Math.max(60,imgs.offsetWidth*.07),su=gap*.8;
 document.querySelectorAll('.ct-img').forEach((el,i)=>{const l=(active-1+N)%N,r=(active+1)%N;
