@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="cream"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FBF4E9">
 <!-- THEME SWITCHER DISABLED (cream is the permanent theme). To bring the switcher back: restore this script and the .themes block near the end of the page.
 <script>try{var t=localStorage.getItem("f1theme");if(/^(cream|white|deck)$/.test(t))document.documentElement.dataset.theme=t}catch(e){}</script>
 -->
@@ -11,15 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head><body>
+<a href="#main" class="skip-link">Skip to content</a>
 <header><div class="wrap bar">
-<a href="#home" class="logo"><img class="ll" src="assets/logo.png" alt="Franchise One"><img class="ld" src="assets/logo-light.png" alt="Franchise One"></a>
+<a href="#home" class="logo"><img class="ll" src="assets/logo-tp.png" alt="Franchise One"><img class="ld" src="assets/logo-tp.png" alt="Franchise One"></a>
 <button class="menu" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
 <nav id="nav"><a href="#home">Home</a><a href="#services">Services</a><a href="#qrafter">Qrafter</a><a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#contact">Contact</a>
 <a href="#contact" class="btn pri sm">Get Started</a></nav>
 </div></header>
-<main>
+<main id="main">
 <section id="home" class="hero"><div class="wrap two">
-<div><p class="eyebrow">Empowering Your Franchise Journey</p>
+<div><p class="eyebrow">Your Franchise Growth Partner</p>
 <h1>All-in-one franchise enabler. Building a Franchise Expansion <span class="grad-text">Ecosystem</span></h1>
 <p class="lead">FranchiseOne provides end-to-end solutions to streamline and accelerate your franchise business with our comprehensive service suite.</p>
 <div class="btns"><a href="#start" class="btn pri">Find your path <i>→</i></a><a href="#" class="btn out" data-qrafter>Explore Qrafter <i>↗</i></a></div></div>
@@ -76,8 +78,8 @@
 <section id="about"><div class="wrap"><p class="eyebrow">About FranchiseOne</p><h2>Your Trusted Franchise Expansion Expert with Proven Success</h2>
 <div class="two top"><div class="clay pad story"><div class="story-slider" id="story-slider" role="region" aria-roledescription="carousel" aria-label="Franchise One story photos"><div class="slides" aria-live="off"></div><div class="ctrl"><div class="dots"></div></div></div><h3>Our Story</h3>
 <p>Founded in 2024, FranchiseOne set out with a bold mission: to transform the franchise industry in Indonesia and beyond. We recognized a significant gap in the market, a lack of comprehensive, end-to-end solutions for franchise businesses aiming to scale effectively.</p>
-<p>Leveraging our deep expertise in the FMCG, commodity, and F&amp;B sectors, we have crafted a uniquely integrated approach that fuses strategic consulting, operational excellence, and cutting-edge technology solutions.</p>
-<p>Today, FranchiseOne is proud to empower emerging local brands and established global franchises as they successfully navigate the complexities of the Indonesian market, fostering sustainable growth and long-term success.</p></div>
+<p>Leveraging our deep expertise in the FMCG, commodity, and F&amp;B sectors, we have crafted a uniquely integrated approach that fuses strategic consulting, operational excellence, and purpose-built technology solutions.</p>
+<p>Today, FranchiseOne backs emerging local brands and established global franchises as they navigate the complexities of the Indonesian market, building sustainable growth across 50+ partnerships.</p></div>
 <div class="leaders">
 <article class="clay pad tilt"><div class="who"><div class="avatar"><span>AB</span><img src="assets/team/andre.jpg" alt="Andre Binarto" onerror="this.remove()"></div><div><h3>Andre Binarto</h3><small>Chief Executive Officer</small></div></div><p>Over 13 years of experience in diverse food-related sectors, building and growing 100+ brands from FMCG to B2C, B2B, franchise, restaurant, and cloud kitchen management.</p><span class="tag">100+ brands built and grown</span></article>
 <article class="clay pad tilt"><div class="who"><div class="avatar"><span>PW</span><img src="assets/team/paulus.jpg" alt="Paulus Sumo Aji Wibowo" onerror="this.remove()"></div><div><h3>Paulus Sumo Aji Wibowo</h3><small>Chief Technology &amp; Product Officer</small></div></div><p>Over 13 years of experience in the tech industry, starting from software engineering and quality assurance to strategic product management leadership across e-commerce, fintech, telecommunications, and health-tech sectors.</p><span class="tag">13+ years in tech &amp; product</span></article>
@@ -93,17 +95,17 @@
 <section id="media"><div class="wrap"><p class="eyebrow">Media Coverage</p><h2>FranchiseOne in the news</h2>
 <div id="news"></div></div></section>
 
-<section id="contact"><div class="wrap two top"><div><p class="eyebrow">Get in Touch</p><h2>Ready to transform your franchise business?</h2>
+<section id="contact"><div class="wrap two top"><div><p class="eyebrow">Get in Touch</p><h2>Let's plan your next 50 branches</h2>
 <p class="lead">Have questions or ready to explore how FranchiseOne can help your business? Our consultants are ready to provide personalized guidance.</p>
 <ul class="info"><li><b>Email us</b><a href="mailto:info@franchise.one">info@franchise.one</a></li><li><b>Call us</b><a href="tel:+62811912300">+62 811912300</a></li><li><b>Visit us</b>PT Revolusi Teknologi Internasional, Gedung Artha Graha SCBD, Jl. Jend. Sudirman Kav. 52–53, Jakarta Selatan 12190</li></ul>
 <p class="note">We typically respond within 24 hours on business days.</p></div>
-<form class="clay pad" id="form"><label>Full name<input name="name" required></label><label>Email address<input name="email" type="email" required></label><label>Phone number<input name="phone" type="tel"></label><label>Your message<textarea name="msg" rows="4" required></textarea></label><small class="hint" id="hint" hidden>We added a starter message for you. Feel free to edit it.</small>
+<form class="clay pad" id="form"><label>Full name<input name="name" autocomplete="name" required></label><label>Email address<input name="email" type="email" autocomplete="email" spellcheck="false" required></label><label>Phone number<input name="phone" type="tel" autocomplete="tel"></label><label>Your message<textarea name="msg" rows="4" required></textarea></label><small class="hint" id="hint" hidden>We added a starter message for you. Feel free to edit it.</small>
 <button class="btn pri" type="submit">Send message <i>→</i></button></form></div></section>
 </main>
 <footer><div class="wrap foot"><div><img class="ll" src="assets/logo.png" alt="Franchise One" height="34"><img class="ld" src="assets/logo-light.png" alt="Franchise One" height="34"><p>Your complete franchise enablement platform</p></div>
 <div><b>Quick links</b><a href="#home">Home</a><a href="#services">Services</a><a href="#qrafter">Qrafter</a><a href="#about">About</a><a href="#contact">Contact</a></div>
 <div><b>Contact</b><p>PT Revolusi Teknologi Internasional<br>Gedung Artha Graha SCBD<br>Jl. Jend. Sudirman Kav. 52–53, Jakarta Selatan 12190</p></div></div>
-<div class="wrap copy"><span>© 2025 FranchiseOne</span><span><a href="#">Terms &amp; Conditions</a> <a href="#">Privacy Policy</a></span></div></footer>
+<div class="wrap copy"><span>© 2026 FranchiseOne</span><span><a href="#">Terms &amp; Conditions</a> <a href="#">Privacy Policy</a></span></div></footer>
 <!-- THEME SWITCHER (disabled)
 <div class="themes" role="group" aria-label="Color theme preview"><span>Theme</span><button type="button" data-t="cream">Cream</button><button type="button" data-t="white">White</button><button type="button" data-t="deck">Deck</button></div>
 -->

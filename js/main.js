@@ -66,8 +66,8 @@ const PATHS=[ // [icon, small label, headline, text, link ("@q" = Qrafter websit
 ["consult","Stuck?","My business is stuck","Something isn't working. Tell us where it hurts and we'll help you find the way forward.","#svc-consult","Find what's holding me back"],
 ["qr","Restaurant","My orders are a mess","Long lines, slow kitchens, confused waiters? Put ordering and tables in one system.","#qrafter","Fix my order flow"]];
 const QUOTES=[ // [name, title, quote, photo filename (without extension, in assets/testimonials/)]
+["Prima Alvernia","Founder & CEO of Mamma Roti","Since partnering with FranchiseOne, Mamma Roti has experienced significant growth. Their swift assistance in finding ideal locations has allowed us to expand strategically.","prima-alverina"],
 ["Ade","Founder & CEO of Cendol Pandan","FranchiseOne has been essential to our rapid growth at Cendol Pandan. With their expert guidance, we've opened over 20 branches in just one month, which I never thought possible.","ade"],
-["Prima Alverina","Founder & CEO of Mamma Roti","Since partnering with FranchiseOne, Mamma Roti has experienced significant growth. Their swift assistance in finding ideal locations has allowed us to expand strategically.","prima-alverina"],
 ["Yulia Khu","Franchisee","Choosing the right brand in the right location is crucial for success, and FranchiseOne excels in this area. Since starting my business with them last year, their guidance has been invaluable.",""]];
 const NEWS=[ // [title, summary, date, article link, image (optional)]
 ["IFBC 2025; FranchiseOne Mendorong Pertumbuhan Wirausaha dan Peluang Bisnis Melalui Franchising","FranchiseOne hadir di Expo Info Franchise and Business Concept (IFBC) 2025 yang diadakan di ICE BSD pada tanggal 14-16 Februari 2025.","February 21, 2025","https://faktual.co.id/ifbc-2025-franchiseone-mendorong-pertumbuhan-wirausaha-dan-peluang-bisnis-melalui-franchising/","assets/news/ifbc-2025.jpg"],
@@ -85,12 +85,12 @@ BRANDS.forEach(([n,c,k])=>{const t=tile(n),u=LINKS[n]||'#';
 if(c)t.insertAdjacentHTML('beforeend',`<div class="meta"><span class="stat"><b class="count" data-n="${c}">${c}+</b>Branches</span>${k?`<em class="mdl ${k}">${MODEL[k]}</em>`:''}</div>`);
 t.insertAdjacentHTML('beforeend',`<div class="curtain"><a class="visit" href="${u}"${u[0]=='h'?' target="_blank" rel="noopener"':''} aria-label="Visit ${n} website"><span class="dot">↗</span>Visit us <i>→</i></a></div>`);$('#logos').append(t)});
 const lnk=(h,t,c='',k='')=>h=='@q'?`<a class="more ${c}" href="#" data-qrafter>${t} <i>→</i></a>`:h=='@b'?`<a class="more ${c}" href="#contact" data-booking data-topic="${k}">${t} <i>→</i></a>`:`<a class="more ${c}" href="${h}">${t} <i>→</i></a>`;
-$('#services-grid').innerHTML=SERVICES.map((s,i)=>`<article id="svc-${s[0]}" class="clay card tilt"><span class="num">0${i+1}</span><div class="ico"><svg viewBox="0 0 24 24">${I[s[0]]}</svg></div><h3>${s[1]}</h3><p>${s[2]}</p><div class="tags">${s[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>${s[4]?lnk(s[4],s[5]||'Click Here','',s[0]):`<span class="more" aria-hidden="true" style="visibility:hidden">&nbsp;</span>`}</article>`).join('');
-$('#paths').innerHTML=PATHS.map(p=>`<article class="clay card path tilt"><div class="ico"><svg viewBox="0 0 24 24">${I[p[0]]}</svg></div><small class="lbl">${p[1]}</small><h3>${p[2]}</h3><p>${p[3]}</p>${lnk(p[4],p[5])}</article>`).join('');
+$('#services-grid').innerHTML=SERVICES.map((s,i)=>`<article id="svc-${s[0]}" class="clay card tilt"><span class="num">0${i+1}</span><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">${I[s[0]]}</svg></div><h3>${s[1]}</h3><p>${s[2]}</p><div class="tags">${s[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>${s[4]?lnk(s[4],s[5]||'Click Here','',s[0]):`<span class="more" aria-hidden="true" style="visibility:hidden">&nbsp;</span>`}</article>`).join('');
+$('#paths').innerHTML=PATHS.map(p=>`<article class="clay card path tilt"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">${I[p[0]]}</svg></div><small class="lbl">${p[1]}</small><h3>${p[2]}</h3><p>${p[3]}</p>${lnk(p[4],p[5])}</article>`).join('');
 [['[data-qrafter]',QRAFTER_URL],['[data-booking]',BOOKING_URL]].forEach(([q,u])=>document.querySelectorAll(q).forEach(a=>{a.href=u;if(/^https?:/.test(u)){a.target='_blank';a.rel='noopener'}}));
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-(()=>{const imgs=$('#ct-images'),txt=$('#ct-text'),N=QUOTES.length;let active=0,timer;
-const mkAv=()=>{const d=document.createElement('div');d.className='ct-avatar';d.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 00-16 0"/></svg>';return d};
+(()=>{const ct=$('#ct'),imgs=$('#ct-images'),txt=$('#ct-text'),N=QUOTES.length;let active=0,timer,onscreen=true;
+const mkAv=()=>{const d=document.createElement('div');d.className='ct-avatar';const ic=document.createElement('div');ic.className='ct-person';d.append(ic);return d};
 QUOTES.forEach(([name,title,quote,photo],i)=>{const el=document.createElement('div');el.className='ct-img';el.dataset.index=i;
 if(photo){const img=new Image();img.src='assets/testimonials/'+photo+'.jpg';img.alt=name;img.onerror=()=>{img.remove();el.append(mkAv())};el.append(img)}else{el.append(mkAv())}
 imgs.append(el)});
@@ -102,12 +102,16 @@ else if(i===r)el.style.cssText='z-index:2;opacity:1;transform:translateX('+gap+'
 else el.style.cssText='z-index:1;opacity:0'});
 const[name,title,quote]=QUOTES[active];
 txt.innerHTML='<h3 class=”ct-name”>'+name+'</h3><p class=”ct-title”>'+title+'</p><p class=”ct-quote”>'+quote.split(' ').map((w,i)=>'<span class=”ct-word” style=”animation-delay:'+i*25+'ms”>'+w+' </span>').join('')+'</p>'}
-function next(){active=(active+1)%N;upd();rst()}function prev(){active=(active-1+N)%N;upd();rst()}
-function rst(){clearInterval(timer);if(!RM)timer=setInterval(next,5000)}
-$('#ct-prev').onclick=prev;$('#ct-next').onclick=next;upd();if(!RM)timer=setInterval(next,5000)})();
+const halt=()=>{clearInterval(timer);timer=undefined};
+const play=()=>{halt();if(!RM&&onscreen&&!document.hidden)timer=setInterval(next,5000)};
+function next(){active=(active+1)%N;upd();play()}function prev(){active=(active-1+N)%N;upd();play()}
+ct.addEventListener('focusin',halt);ct.addEventListener('focusout',play);
+document.addEventListener('visibilitychange',()=>document.hidden?halt():play());
+new IntersectionObserver(([e])=>{onscreen=e.isIntersecting;onscreen?play():halt()},{threshold:.3}).observe(ct);
+$('#ct-prev').onclick=prev;$('#ct-next').onclick=next;upd();play()})();
 (()=>{const f=NEWS[0],rest=NEWS.slice(1);
-$('#news').innerHTML=`<article class="clay news-feat tilt"><div class="news-img">${f[4]?`<img src="${f[4]}" alt="" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-body"><div class="news-meta"><span class="tag">Media</span><span class="date">${f[2]}</span></div><h3><span>${f[0]}</span></h3><p>${f[1]}</p><a class="btn pri sm" href="${f[3]}" target="_blank" rel="noopener">Read the full article <i>→</i></a></div></article>`+
-`<div class="grid3 news-grid">${rest.map(n=>`<article class="clay card tilt"><div class="news-img sm">${n[4]?`<img src="${n[4]}" alt="" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-meta"><span class="tag">Media</span><span class="date">${n[2]}</span></div><h3>${n[0]}</h3><p>${n[1]}</p><a class="more" href="${n[3]||'#'}" target="_blank" rel="noopener">Read more <i>→</i></a></article>`).join('')}</div>`})();
+$('#news').innerHTML=`<article class="clay news-feat tilt"><div class="news-img">${f[4]?`<img src="${f[4]}" alt="${f[0].replace(/"/g,'&quot;')}" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-body"><div class="news-meta"><span class="tag">Media</span><span class="date">${f[2]}</span></div><h3><span>${f[0]}</span></h3><p>${f[1]}</p><a class="btn pri sm" href="${f[3]}" target="_blank" rel="noopener">Read the full article <i>→</i></a></div></article>`+
+`<div class="grid3 news-grid">${rest.map(n=>`<article class="clay card tilt"><div class="news-img sm">${n[4]?`<img src="${n[4]}" alt="${n[0].replace(/"/g,'&quot;')}" loading="lazy">`:`<span class="news-ph">\u{1F4F0}</span>`}</div><div class="news-meta"><span class="tag">Media</span><span class="date">${n[2]}</span></div><h3>${n[0]}</h3><p>${n[1]}</p><a class="more" href="${n[3]||'#'}" target="_blank" rel="noopener">Read more <i>→</i></a></article>`).join('')}</div>`})();
 /* ===== Interactions ===== */
 const nav=$('#nav'),btn=$('.menu');btn.onclick=()=>btn.setAttribute('aria-expanded',nav.classList.toggle('open'));nav.onclick=e=>{if(e.target.tagName=='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}};
 const links=[...nav.querySelectorAll('a:not(.btn)')];

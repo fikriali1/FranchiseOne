@@ -1,6 +1,8 @@
 :root{--teal:#1D907F;--teal2:#53B7A6;--tdk:#136b5e;--purple:#241A42;--cream:#F6E9DC;--butter:#FEE8B6;--text:#111;--bg:#FAF9F6;--hdr:rgba(250,249,246,.72);--navbg:rgba(250,249,246,.97);--ease:cubic-bezier(.2,.8,.2,1)}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{font:500 17px/1.65 Nunito,system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+body{font:500 17px/1.65 Nunito,system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-tap-highlight-color:rgba(29,144,127,.2)}
+a,button,input,textarea,select{touch-action:manipulation}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:100}.skip-link:focus{position:fixed;top:12px;left:12px;width:auto;height:auto;padding:12px 20px;border-radius:12px;background:var(--purple);color:#fff;font-weight:800;z-index:100;outline:3px solid var(--teal2);outline-offset:2px}
 h1,h2,h3{color:var(--purple);font-weight:800;line-height:1.12}
 h1{font-size:clamp(2.3rem,5vw,3.9rem)}h2{font-size:clamp(1.8rem,3.4vw,2.7rem);max-width:20ch;margin-bottom:44px}h3{font-size:1.3rem}
 a{color:inherit;text-decoration:none}img{max-width:100%}
@@ -101,10 +103,10 @@ nav a.active::after,nav a:not(.btn):hover::after,nav a:not(.btn):focus-visible::
 /* circular testimonials */
 .ct{max-width:56rem;margin:0 auto}
 .ct-images{position:relative;aspect-ratio:3/4;max-height:28rem;perspective:1000px;margin-bottom:3rem}
-.ct-img{position:absolute;width:100%;height:100%;border-radius:1.5rem;overflow:hidden;box-shadow:0 10px 30px rgba(36,26,66,.2);transition:all .8s cubic-bezier(.4,2,.3,1);opacity:0;pointer-events:none}
+.ct-img{position:absolute;width:100%;height:100%;border-radius:1.5rem;overflow:hidden;box-shadow:0 10px 30px rgba(36,26,66,.2);transition:transform .8s cubic-bezier(.4,2,.3,1),opacity .8s cubic-bezier(.4,2,.3,1);opacity:0;pointer-events:none}
 .ct-img img{width:100%;height:100%;object-fit:cover;border-radius:1.5rem}
 .ct-avatar{width:100%;height:100%;display:grid;place-items:center;color:rgba(255,255,255,.85);background:linear-gradient(135deg,var(--teal),var(--teal2));border-radius:1.5rem}
-.ct-avatar svg{width:50%;height:50%}
+.ct-person{position:relative;width:40%;aspect-ratio:1}.ct-person::before{content:"";position:absolute;top:0;left:50%;width:40%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.85);transform:translateX(-50%)}.ct-person::after{content:"";position:absolute;bottom:0;left:50%;width:100%;aspect-ratio:2/1;border-radius:999px 999px 0 0;background:rgba(255,255,255,.85);transform:translateX(-50%)}
 .ct-body{display:flex;flex-direction:column;justify-content:space-between}
 .ct-name{font-size:1.5rem;font-weight:800;color:var(--purple);margin-bottom:4px}
 .ct-title{font-size:.925rem;font-weight:700;color:var(--tdk);margin-bottom:1.5rem}
@@ -133,7 +135,7 @@ footer{margin-top:60px;padding:56px 0 24px;border-top:1px solid rgba(36,26,66,.0
 @media(max-width:900px){.two,.foot{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.visual{height:400px}section{padding:64px 0}
 .menu{display:block}nav{position:absolute;left:0;right:0;top:72px;flex-direction:column;align-items:flex-start;padding:20px 24px 28px;background:var(--navbg);border-bottom:1px solid rgba(36,26,66,.1);display:none}nav.open{display:flex}}
 @media(max-width:600px){.grid3{grid-template-columns:1fr}.stats{grid-template-columns:1fr;gap:20px}.visual{height:380px}.main{inset:50px 6px 60px 6px;transform:none}.c1{left:0}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}*:not(:focus-visible):not(:focus){transition-duration:.01ms!important}}
 @media(max-width:600px){.ls-card{width:48vw;padding:22px 12px}.ls-card img{height:18px}.ls-overlay{-webkit-mask:linear-gradient(to right,black 0,black 5%,transparent 20%,transparent 80%,black 95%,black 100%);mask:linear-gradient(to right,black 0,black 5%,transparent 20%,transparent 80%,black 95%,black 100%)}}
 @media(max-width:600px){.logos{grid-template-columns:repeat(2,1fr);gap:16px}.logos .logo-tile{padding:16px}.logos .logo-tile img{max-height:100px}.visit{gap:8px;padding:5px 12px 5px 5px;font-size:.9rem}.visit .dot{width:30px;height:30px;font-size:1rem}}
 .logo-tile .lg{display:grid;place-items:center;width:100%;flex:1;min-height:0}
